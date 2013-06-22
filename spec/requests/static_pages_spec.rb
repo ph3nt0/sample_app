@@ -1,65 +1,49 @@
-# encoding: utf-8
-
 require 'spec_helper'
 
-describe "Static Pages" do
+describe "Static pages" do
 
-	describe "Home page" do
+  subject { page }
 
-		it "Should have h1 'Sample app'" do
-			visit '/static_pages/home'
-			page.should have_selector('h1', :text => 'Sample app')
-		end
+  describe "Home page" do
+    before { visit root_path }
 
-		it "Should have the base title" do
-			visit '/static_pages/home'
-			page.should have_selector('title', :text => "Ruby on Rails Tutorial Sample App")		
-		end
+    it { should have_selector('h1',    text: 'Sample App') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector 'title', text: '| Home' }
+  end
 
-		it "Should not have a custom page title" do
-			visit '/static_pages/home'
-			page.should_not have_selector('title', :text => "| Home")
-		end
+  describe "Help page" do
+    before { visit help_path }
 
-	end
+    it { should have_selector('h1',    text: 'Help') }
+    it { should have_selector('title', text: full_title('Help')) }
+  end
 
-	describe "Help page" do
+  describe "About page" do
+    before { visit about_path }
 
-		it "Should have h1 'Help'" do
-			visit '/static_pages/help'
-			page.should have_selector('h1', :text => 'Help')
-		end
-		it "Should have right title" do
-			visit '/static_pages/help'
-			page.should have_selector('title', :text => "Ruby on Rails Tutorial Sample App | Help")
-		end
+    it { should have_selector('h1',    text: 'About') }
+    it { should have_selector('title', text: full_title('About Us')) }
+  end
 
-	end
+  describe "Contact page" do
+    before { visit contact_path }
 
-	describe "About page" do
+    it { should have_selector('h1',    text: 'Contact') }
+    it { should have_selector('title', text: full_title('Contact')) }
+  end
 
-		it "Should have h1 'About us'" do
-			visit '/static_pages/about'
-			page.should have_selector('h1', :text => 'About us')
-		end
-		it "Should have right title" do
-			visit '/static_pages/about'
-			page.should have_selector('title', :text => "Ruby on Rails Tutorial Sample App | About")		
-		end
-
-	end
-
-	describe "Contact page" do
-
-		it "Should have h1 'Contact'" do
-			visit '/static_pages/contact'
-			page.should have_selector('h1', :text => 'Contact')
-		end
-		it "Should have right title" do
-			visit '/static_pages/contact'
-			page.should have_selector('title', :text => "Ruby on Rails Tutorial Sample App | Contact")
-		end
-
+	it "should have the right links on the layout" do
+	    visit root_path
+	    click_link "About"
+	    page.should have_selector 'title', text: full_title('About Us')
+	    click_link "Help"
+	    page.should have_selector 'title', text: full_title('Help')
+	    click_link "Contact"
+	    page.should have_selector 'title', text: full_title('Contact')
+	    click_link "Home"
+	    click_link "Sign up now"
+	    page.should have_selector 'title', text: full_title('Sign Up')
 	end
 
 end
