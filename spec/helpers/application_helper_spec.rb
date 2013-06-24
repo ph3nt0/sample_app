@@ -1,8 +1,9 @@
 require 'spec_helper'
 
+#Teszteljük az ApplicationHelper full_title függvényét
+
 describe ApplicationHelper do
 	describe "full_title" do
-
 		it "Should include the page name" do
 			full_title("foo").should =~ /foo/
 		end

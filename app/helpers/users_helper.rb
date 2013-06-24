@@ -1,5 +1,5 @@
 module UsersHelper
-	# Returns the Gravatar (http://gravatar.com/) for the given user.
+	# A gravatar képet kéri le az adott felhasználóhoz és opcionálisan az adott mérettel
 	def gravatar_for(user, options = { size: 50 })
 		gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
 		size = options[:size]

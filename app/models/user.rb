@@ -1,8 +1,12 @@
 class User < ActiveRecord::Base
+
+  # Elérhetővé tesszük ezeket a változókat
   attr_accessible :name, :email, :password, :password_confirmation
 
   has_secure_password
 
+
+  # Megadjuk a különböző adattáblák közti összefüggéseket
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -12,6 +16,7 @@ class User < ActiveRecord::Base
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
+  # Megvizsgáljük a kapott adatok érvényességét
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }

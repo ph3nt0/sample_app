@@ -12,8 +12,10 @@ SampleApp::Application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
 
+  # Beállítjuk a főoldalt
   root :to => 'static_pages#home'
 
+  # Hozzárendeljük az adott aloldalt a 'to' paraméterben megadott oldalhoz
   match '/signup', to: 'users#new'
 
   match '/signin',  to: 'sessions#new'

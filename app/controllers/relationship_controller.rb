@@ -1,6 +1,7 @@
 class RelationshipsController < ApplicationController
   before_filter :signed_in_user
 
+  # Követés létrehozása
   def create
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
@@ -10,6 +11,7 @@ class RelationshipsController < ApplicationController
     end
   end
 
+  # Követés megszüntetése
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)

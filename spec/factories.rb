@@ -1,3 +1,4 @@
+# Ez alapján a fájl alapján hozzuk létre a teszteléshez használt felhasználókat, adminokat és micropostokat
 FactoryGirl.define do
   factory :user do
     sequence(:name)  { |n| "Person #{n}" }
